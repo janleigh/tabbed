@@ -1,13 +1,13 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static char font[] = "Sarasa Mono CL Nerd Font:style:Regular:pixelsize=13";
-static char *normbgcolor = "#151a1c";
+static char font[] = "Sarasa Mono CL Nerd Font:style=Regular:pixelsize=13";
+static char *normbgcolor = "#131718";
 static char *normfgcolor = "#b7b8b8";
-static char *selbgcolor = "#131718";
+static char *selbgcolor = "#101415";
 static char *selfgcolor = "#c5c8c9";
-static char *urgbgcolor = "#272A2B";
-static char *urgfgcolor = "#cc0000";
+static char *urgbgcolor = "#192022";
+static char *urgfgcolor = "#f65b5b";
 static char before[] = "";
 static char after[] = "";
 static char titletrim[] = "...";
@@ -42,21 +42,18 @@ ResourcePref resources[] = {
 static int newposition = 0;
 static Bool npisrelative = False;
 
-#define SETPROP(p)                                                             \
-  {                                                                            \
-    .v = (char *[]) {                                                          \
-      "/bin/sh", "-c",                                                         \
-          "prop=\"`xwininfo -children -id $1 | grep '^     0x' |"              \
-          "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |"       \
-          "xargs -0 printf %b | dmenu -l 10 -w $1`\" &&"                       \
-          "xprop -id $1 -f $0 8s -set $0 \"$prop\"",                           \
-          p, winid, NULL                                                       \
-    }                                                                          \
-  }
+#define SETPROP(p) { \
+    .v = (char *[]){ "/bin/sh", "-c",                                       \
+        "prop=\"`xwininfo -children -id $1 | grep '^     0x' |"             \
+        "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |"      \
+        "xargs -0 printf %b | dmenu -l 10 -w $1`\" &&"                      \
+        "xprop -id $1 -f $0 8s -set $0 \"$prop\"",                          \
+        p, winid, NULL                                                      \
+    }                                                                       \
+}
 
 #define MODKEY ControlMask
 static Key keys[] = {
-    /* modifier             key        function     argument */
     {MODKEY | ShiftMask, XK_Return, focusonce, {0}},
     {MODKEY | ShiftMask, XK_Return, spawn, {0}},
 

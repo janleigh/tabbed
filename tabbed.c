@@ -48,11 +48,24 @@
 #define CLEANMASK(mask)         (mask & ~(numlockmask | LockMask))
 #define TEXTW(x)                (textnw(x, strlen(x)) + dc.font.height)
 
-enum { ColFG, ColBG, ColLast };       /* color */
-enum { WMProtocols, WMDelete, WMName, WMState, WMFullscreen,
-       XEmbed, WMSelectTab, WMLast }; /* default atoms */
+enum {
+	ColFG,
+	ColBG,
+	ColLast
+};
+enum { 
+	WMProtocols,
+	WMDelete,
+	WMName,
+	WMState,
+	WMFullscreen,
 
-enum restype { STRING = 0, INTEGER = 1 }; /* xresources entry type */
+    XEmbed,
+	WMSelectTab,
+	WMLast
+};
+
+enum restype { STRING = 0, INTEGER = 1 };
 
 typedef struct {
 	char *name;
@@ -193,7 +206,7 @@ buttonpress(const XEvent *e)
 	int i, fc;
 	Arg arg;
 
-	if (ev->y < wh - bh)
+	if (ev->y < 0 || ev->y > bh)
 		return;
 
 	if (((fc = getfirsttab()) > 0 && ev->x < TEXTW(before)) || ev->x < 0)
@@ -343,7 +356,7 @@ drawbar(void)
 		dc.w = ww;
 		XFetchName(dpy, win, &name);
 		drawtext(name ? name : "", dc.norm);
-                XCopyArea(dpy, dc.drawable, win, dc.gc, 0, 0, ww, bh, 0, wh - bh);
+        XCopyArea(dpy, dc.drawable, win, dc.gc, 0, 0, ww, vbh, 0, 0);
 
 		XSync(dpy, False);
 
@@ -392,7 +405,7 @@ drawbar(void)
 		dc.x += dc.w;
 		clients[c]->tabx = dc.x;
 	}
-	XCopyArea(dpy, dc.drawable, win, dc.gc, 0, 0, ww, bh, 0, wh - bh);
+	XCopyArea(dpy, dc.drawable, win, dc.gc, 0, 0, ww, bh, 0, 0);
 	XSync(dpy, False);
 }
 
@@ -907,7 +920,7 @@ resize(int c, int w, int h)
 	XWindowChanges wc;
 
 	ce.x = 0;
-	ce.y = wc.y = 0;
+	ce.y = wc.y = bh;
 	ce.width = wc.width = w;
 	ce.height = wc.height = h;
 	ce.type = ConfigureNotify;

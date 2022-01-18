@@ -2,3 +2,4 @@
 config.h
 tabbed.c.rej
 tabbed
+xembed

@@ -1,11 +1,11 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static char font[] = "JetBrainsMono Nerd Font:style:medium:pixelsize=13";
-static char *normbgcolor = "#272A2B";
-static char *normfgcolor = "#cccccc";
-static char *selbgcolor = "#1d2021";
-static char *selfgcolor = "#ffffff";
+static char font[] = "Sarasa Mono CL Nerd Font:style:Regular:pixelsize=13";
+static char *normbgcolor = "#151a1c";
+static char *normfgcolor = "#b7b8b8";
+static char *selbgcolor = "#131718";
+static char *selfgcolor = "#c5c8c9";
 static char *urgbgcolor = "#272A2B";
 static char *urgfgcolor = "#cc0000";
 static char before[] = "";

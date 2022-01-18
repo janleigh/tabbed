@@ -12,9 +12,9 @@ static char before[] = "";
 static char after[] = "";
 static char titletrim[] = "...";
 static int tabwidth = 200;
-static const foreground = True;
+static Bool foreground = True;
 static Bool urgentswitch = False;
-static int barheight = 30;
+static int barheight = 40;
 
 /*
  * Xresources preferences to load at startup
